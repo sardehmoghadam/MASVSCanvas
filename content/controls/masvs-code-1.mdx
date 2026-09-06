@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-CODE-1
+slug: masvs-code-1
+title: "Require an up-to-date platform"
+summary: "Run only on platform versions that still receive security patches."
+chapter:
+  id: MASVS-CODE
+  title: Code Quality
+levels: ["L1", "L2"]
+tags:
+  - code
+  - platform-version
+  - patching
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-CODE-2
+    title: "The app has a mechanism for enforcing app updates."
+    href: /controls/masvs-code-2/
+---
+
+## What This Control Means
+
+Set a minimum OS version that still gets security updates, and refuse to run (or degrade features) on older, patched-out versions.
+
+## Why This Matters
+
+Old OS versions carry known, unpatched vulnerabilities that make every app-side control weaker.
+
+## Main Security Requirement
+
+> The app requires an up-to-date platform version.
+
+## Common Failure Patterns
+
+- Supporting long-deprecated Android or iOS versions.
+- Providing full functionality on unpatched builds.
+- Ignoring OS versions when evaluating trust.
+
+## Secure Implementation
+
+Declare a minimum SDK / deployment target aligned with still-supported OS versions and gate sensitive features on device attestation where needed.
+
+## Key Rules
+
+- Set a minimum version that still receives patches.
+- Verify the platform version at runtime.
+- Degrade gracefully on unsupported versions.
+
+## Checklist for Code Review
+
+- Is the minimum OS version still security-supported?
+- Does the app detect unsupported platforms?
+- Are sensitive features gated appropriately?

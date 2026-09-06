@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PLATFORM-2
+slug: masvs-platform-2
+title: "Use WebViews securely"
+summary: "Configure WebViews to prevent data leakage and native bridge abuse."
+chapter:
+  id: MASVS-PLATFORM
+  title: Platform Interaction
+levels: ["L1", "L2"]
+tags:
+  - platform
+  - webview
+  - javascript-bridge
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PLATFORM-1
+    title: "The app uses IPC mechanisms securely."
+    href: /controls/masvs-platform-1/
+  - id: MASVS-PLATFORM-3
+    title: "The app uses the user interface securely."
+    href: /controls/masvs-platform-3/
+---
+
+## What This Control Means
+
+WebViews load web content and can expose native functionality through JS bridges; both the content and the bridge must be locked down.
+
+## Why This Matters
+
+A misconfigured WebView can leak local data or let web content call native code, enabling data theft or even code execution.
+
+## Main Security Requirement
+
+> The app uses WebViews securely.
+
+## Common Failure Patterns
+
+- Enabling JavaScript and a bridge for untrusted content.
+- Mixing app data into WebView storage or cookies.
+- Allowing navigation or file access to arbitrary schemes.
+
+## Secure Implementation
+
+Disable JavaScript when not needed; if required, restrict the bridge to an allowlist of origins and functions, and disable file and universal-link access.
+
+## Key Rules
+
+- Restrict the JS bridge to an allowlist.
+- Isolate WebView storage from app data.
+- Disable unnecessary file and scheme access.
+
+## Checklist for Code Review
+
+- Is JavaScript and the bridge allowlisted?
+- Can untrusted content reach native functions?
+- Is file access and link handling restricted?

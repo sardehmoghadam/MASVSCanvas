@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PRIVACY-4
+slug: masvs-privacy-4
+title: "Give users control over data"
+summary: "Let users view, modify, delete, and revoke consent for their data."
+chapter:
+  id: MASVS-PRIVACY
+  title: Privacy
+levels: ["L1", "L2"]
+tags:
+  - privacy
+  - user-control
+  - deletion
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PRIVACY-3
+    title: "The app is transparent about data collection and usage."
+    href: /controls/masvs-privacy-3/
+  - id: MASVS-PRIVACY-2
+    title: "The app prevents identification of the user."
+    href: /controls/masvs-privacy-2/
+---
+
+## What This Control Means
+
+Provide mechanisms to manage, modify, and delete user data and to revoke consent or adjust privacy settings.
+
+## Why This Matters
+
+User control is a core privacy principle and a legal requirement in many jurisdictions.
+
+## Main Security Requirement
+
+> The app offers user control over their data.
+
+## Common Failure Patterns
+
+- No way to delete or export user data.
+- Consent that cannot be revoked.
+- Not re-prompting when more data than stated is requested.
+
+## Secure Implementation
+
+Expose data management/export/delete options, honor consent revocation, and re-prompt when expanding the data scope.
+
+## Key Rules
+
+- Provide export and deletion options.
+- Allow consent revocation.
+- Re-prompt when the data scope grows.
+
+## Checklist for Code Review
+
+- Can users view/export/delete their data?
+- Is consent revocation honored?
+- Does the app re-request consent on scope changes?

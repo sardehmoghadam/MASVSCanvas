@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-NETWORK-2
+slug: masvs-network-2
+title: "Pin endpoint identity"
+summary: "Trust only specific CAs or public keys for endpoints under the developer's control."
+chapter:
+  id: MASVS-NETWORK
+  title: Network Communication
+levels: ["L2"]
+tags:
+  - network
+  - pinning
+  - certificates
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-NETWORK-1
+    title: "The app secures all network traffic according to the current best practices."
+    href: /controls/masvs-network-1/
+---
+
+## What This Control Means
+
+For your own endpoints, pin the expected certificate or public key so the app rejects connections signed by any other (possibly malicious) CA.
+
+## Why This Matters
+
+Pinning reduces the risk of man-in-the-middle attacks through rogue or compromised CAs for the endpoints you control.
+
+## Main Security Requirement
+
+> The app performs identity pinning for all remote endpoints under the developer's control.
+
+## Common Failure Patterns
+
+- Trusting all default root CAs for your own backend.
+- Hardcoding a pinned key with no update path.
+- Pinning but leaving a dev bypass enabled in release builds.
+
+## Secure Implementation
+
+Pin SPKI hashes with a backup pin and an update strategy; use platform or library support and test key rotation carefully.
+
+## Key Rules
+
+- Pin only endpoints you control.
+- Include a backup pin and a rotation plan.
+- Remove debug/pinning bypasses from release builds.
+
+## Checklist for Code Review
+
+- Is pinning scoped to developer-controlled endpoints?
+- Is there a backup pin and rotation path?
+- Are release builds free of pinning bypasses?

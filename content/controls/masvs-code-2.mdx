@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-CODE-2
+slug: masvs-code-2
+title: "Enforce app updates"
+summary: "Force users to update before using an app with known critical flaws."
+chapter:
+  id: MASVS-CODE
+  title: Code Quality
+levels: ["L1", "L2"]
+tags:
+  - code
+  - updates
+  - enforcement
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-CODE-1
+    title: "The app requires an up-to-date platform version."
+    href: /controls/masvs-code-1/
+---
+
+## What This Control Means
+
+When a critical vulnerability is fixed, the app must be able to block old clients until they update.
+
+## Why This Matters
+
+Without forced updates, a vulnerable version remains in the field indefinitely and can be attacked.
+
+## Main Security Requirement
+
+> The app has a mechanism for enforcing app updates.
+
+## Common Failure Patterns
+
+- No update enforcement for critical fixes.
+- Relying only on the store's optional update prompts.
+- No backend signal to force a minimum version.
+
+## Secure Implementation
+
+Add a server-driven minimum-version check that blocks the app (or the affected feature) and deep-links to the store when the client is too old.
+
+## Key Rules
+
+- Track a minimum required version server-side.
+- Block affected flows until updated.
+- Deep-link users to the update.
+
+## Checklist for Code Review
+
+- Can the backend force a minimum version?
+- Do old clients get blocked or restricted?
+- Is there a clear update path for users?

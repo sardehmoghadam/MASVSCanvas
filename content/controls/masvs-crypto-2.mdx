@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-CRYPTO-2
+slug: masvs-crypto-2
+title: "Manage keys securely"
+summary: "Generate, store, and protect cryptographic keys across their whole lifecycle."
+chapter:
+  id: MASVS-CRYPTO
+  title: Cryptography
+levels: ["L1", "L2"]
+tags:
+  - cryptography
+  - key-management
+  - keystore
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-CRYPTO-1
+    title: "The app employs current strong cryptography and uses it according to industry best practices."
+    href: /controls/masvs-crypto-1/
+---
+
+## What This Control Means
+
+Keys must be generated with a CSPRNG, protected at rest, rotated, and destroyed properly. Poor key handling defeats even the strongest ciphers.
+
+## Why This Matters
+
+An attacker who can read a key can read everything it protects, so key compromise is usually total compromise.
+
+## Main Security Requirement
+
+> The app performs key management according to industry best practices.
+
+## Common Failure Patterns
+
+- Hardcoding keys or deriving them from static strings.
+- Storing keys in app files or shared preferences.
+- Keeping keys outside the platform's hardware-backed keystore.
+
+## Secure Implementation
+
+Generate keys with a CSPRNG, keep them in the Android Keystore / iOS Keychain (preferably hardware-backed), and define rotation and destruction procedures.
+
+## Key Rules
+
+- Generate keys with a cryptographically secure RNG.
+- Store keys only in the platform keystore/Keychain.
+- Define key rotation and revocation.
+
+## Checklist for Code Review
+
+- Are keys generated with a CSPRNG?
+- Are all keys held in hardware-backed storage?
+- Is there a documented rotation/revocation process?

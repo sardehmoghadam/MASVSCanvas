@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-AUTH-1
+slug: masvs-auth-1
+title: "Use secure auth and authorization protocols"
+summary: "Follow best practices for remote authentication and authorization protocols."
+chapter:
+  id: MASVS-AUTH
+  title: Authentication and Authorization
+levels: ["L1", "L2"]
+tags:
+  - authentication
+  - oauth
+  - tokens
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-AUTH-2
+    title: "The app performs local authentication securely according to the platform best practices."
+    href: /controls/masvs-auth-2/
+  - id: MASVS-AUTH-3
+    title: "The app secures sensitive operations with additional authentication."
+    href: /controls/masvs-auth-3/
+---
+
+## What This Control Means
+
+When authenticating against a remote service, the app must use modern protocols (OIDC/OAuth 2.1 with PKCE) correctly, keep credentials and tokens secure, and rely on the server to enforce authorization.
+
+## Why This Matters
+
+Protocol misuse, such as storing passwords, embedding client secrets, or skipping PKCE, turns a secure protocol into an account-takeover vector.
+
+## Main Security Requirement
+
+> The app uses secure authentication and authorization protocols and follows the relevant best practices.
+
+## Common Failure Patterns
+
+- Embedding OAuth client secrets in the app.
+- Skipping PKCE for OAuth public clients.
+- Storing user passwords or long-lived tokens unsafely.
+
+## Secure Implementation
+
+Use OIDC/OAuth with PKCE for public clients, store tokens in the keystore/Keychain, and keep authorization decisions on the server.
+
+## Key Rules
+
+- Use PKCE for OAuth public clients.
+- Keep tokens in secure storage and refresh them safely.
+- Never embed client secrets in the app.
+
+## Checklist for Code Review
+
+- Is PKCE used for every OAuth flow?
+- Are tokens stored in secure storage?
+- Are there any embedded client secrets?

@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-STORAGE-1
+slug: masvs-storage-1
+title: "Securely store sensitive data"
+summary: "Encrypt or protect sensitive data wherever it is intentionally persisted on the device."
+chapter:
+  id: MASVS-STORAGE
+  title: Storage
+levels: ["L1", "L2"]
+tags:
+  - storage
+  - sensitive-data
+  - encryption
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-STORAGE-2
+    title: "The app prevents leakage of sensitive data."
+    href: /controls/masvs-storage-2/
+---
+
+## What This Control Means
+
+Sensitive data such as PII, tokens, and keys often must be persisted locally. Whatever the location, the app has to protect it: use platform secure storage or strong encryption for everything it intentionally writes.
+
+## Why This Matters
+
+A lost or stolen device hands local data to an attacker, so storage must assume the device could be compromised and still keep sensitive data unreadable.
+
+## Main Security Requirement
+
+> The app securely stores sensitive data.
+
+## Common Failure Patterns
+
+- Writing tokens or PII to SharedPreferences/NSUserDefaults without encryption.
+- Storing credentials in plain SQLite or files readable by other apps.
+- Placing sensitive files in public folders such as Downloads or external storage.
+
+## Secure Implementation
+
+Use platform keystore-backed storage (Android Keystore / iOS Keychain) for secrets, and encrypt application data at rest with keys that live in hardware-backed storage. Prefer the OS-provided encrypted storage primitives over hand-rolled encryption.
+
+## Key Rules
+
+- Classify data before choosing a storage location.
+- Use platform secure storage for secrets and keys.
+- Encrypt sensitive data at rest with hardware-backed keys.
+
+## Checklist for Code Review
+
+- Is sensitive data classified and mapped to a storage location?
+- Are secrets and keys stored in the platform keystore/Keychain?
+- Is any sensitive data written to public or shared locations?

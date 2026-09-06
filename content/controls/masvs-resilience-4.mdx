@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-RESILIENCE-4
+slug: masvs-resilience-4
+title: "Impede dynamic analysis"
+summary: "Make runtime observation, instrumentation, and manipulation as hard as possible."
+chapter:
+  id: MASVS-RESILIENCE
+  title: Resilience Against Reverse Engineering and Tampering
+levels: ["R"]
+tags:
+  - resilience
+  - dynamic-analysis
+  - anti-debugging
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-RESILIENCE-3
+    title: "The app implements anti-static analysis mechanisms."
+    href: /controls/masvs-resilience-3/
+  - id: MASVS-RESILIENCE-2
+    title: "The app implements anti-tampering mechanisms."
+    href: /controls/masvs-resilience-2/
+---
+
+## What This Control Means
+
+Detect debuggers, emulators, hooking frameworks (Frida/Xposed), and other runtime instrumentation to raise the cost of dynamic tampering.
+
+## Why This Matters
+
+Dynamic analysis enables live code modification and extraction; impeding it protects runtime behavior and data.
+
+## Main Security Requirement
+
+> The app implements anti-dynamic analysis techniques.
+
+## Common Failure Patterns
+
+- Ignoring debugger and emulator signals.
+- Leaving obvious hooks for Frida or Xposed.
+- No reaction when instrumentation is detected.
+
+## Secure Implementation
+
+Detect debuggers and known hooking frameworks with layered checks, verify environment consistency, and degrade or block when instrumentation is present.
+
+## Key Rules
+
+- Detect debuggers and emulators.
+- Detect hooking frameworks.
+- Respond to instrumentation (block or degrade).
+
+## Checklist for Code Review
+
+- Are debugger and emulator checks present?
+- Are Frida/Xposed-style hooks detected?
+- Is there a runtime response to detection?

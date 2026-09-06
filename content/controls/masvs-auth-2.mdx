@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-AUTH-2
+slug: masvs-auth-2
+title: "Secure local authentication"
+summary: "Implement biometric and PIN authentication according to platform best practices."
+chapter:
+  id: MASVS-AUTH
+  title: Authentication and Authorization
+levels: ["L1", "L2"]
+tags:
+  - authentication
+  - biometrics
+  - pin
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-AUTH-1
+    title: "The app uses secure authentication and authorization protocols and follows the relevant best practices."
+    href: /controls/masvs-auth-1/
+  - id: MASVS-AUTH-3
+    title: "The app secures sensitive operations with additional authentication."
+    href: /controls/masvs-auth-3/
+---
+
+## What This Control Means
+
+Local auth (biometrics, PIN) must use the platform's own mechanisms, never a homemade matcher, and must fall back to secure credentials when biometrics are unavailable or revoked.
+
+## Why This Matters
+
+A weak local lock lets anyone with brief device access into the app and its data.
+
+## Main Security Requirement
+
+> The app performs local authentication securely according to the platform best practices.
+
+## Common Failure Patterns
+
+- Implementing custom biometric matching instead of platform APIs.
+- Allowing fallback to a weak PIN or none after a failed attempt.
+- Not invalidating local auth when the device's credentials change.
+
+## Secure Implementation
+
+Use BiometricPrompt (Android) or LAContext (iOS), require a strong device credential as fallback, and invalidate the saved credential when the OS reports a change.
+
+## Key Rules
+
+- Use platform biometric/PIN APIs exclusively.
+- Require a strong fallback credential.
+- Invalidate auth when device credentials change.
+
+## Checklist for Code Review
+
+- Is only the platform biometric/PIN API used?
+- Is there a strong fallback when biometrics are unavailable?
+- Does the app react to device credential changes?

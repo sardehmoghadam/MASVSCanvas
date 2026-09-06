@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-CRYPTO-1
+slug: masvs-crypto-1
+title: "Use strong, current cryptography"
+summary: "Apply current, industry-approved cryptographic algorithms and correct usage patterns."
+chapter:
+  id: MASVS-CRYPTO
+  title: Cryptography
+levels: ["L1", "L2"]
+tags:
+  - cryptography
+  - algorithms
+  - aes
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-CRYPTO-2
+    title: "The app performs key management according to industry best practices."
+    href: /controls/masvs-crypto-2/
+---
+
+## What This Control Means
+
+Use only algorithms and modes that are still considered secure, with correct parameters, and follow standards such as NIST SP 800-175B and SP 800-57.
+
+## Why This Matters
+
+Weak or misused cryptography gives a false sense of security and can be broken in practice, exposing everything it was meant to protect.
+
+## Main Security Requirement
+
+> The app employs current strong cryptography and uses it according to industry best practices.
+
+## Common Failure Patterns
+
+- Using deprecated algorithms like DES, RC4, or MD5 for protection.
+- Using AES in ECB mode or with a static IV.
+- Rolling custom crypto instead of vetted, maintained libraries.
+
+## Secure Implementation
+
+Use AES-GCM or ChaCha20-Poly1305 for authenticated encryption, unique random IVs/nonces per encryption, and vetted crypto libraries rather than hand-rolled ciphers.
+
+## Key Rules
+
+- Use well-reviewed, up-to-date crypto libraries.
+- Prefer authenticated encryption (AES-GCM/ChaCha20-Poly1305).
+- Never invent algorithms or reuse an IV/key.
+
+## Checklist for Code Review
+
+- Are all algorithms and modes on an approved list?
+- Are IVs/nonces unique and random?
+- Is authentication enforced on encrypted data?

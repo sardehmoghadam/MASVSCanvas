@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PRIVACY-1
+slug: masvs-privacy-1
+title: "Minimize data and resource access"
+summary: "Request only the data and permissions the app truly needs, with consent."
+chapter:
+  id: MASVS-PRIVACY
+  title: Privacy
+levels: ["L1", "L2"]
+tags:
+  - privacy
+  - data-minimization
+  - consent
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PRIVACY-2
+    title: "The app prevents identification of the user."
+    href: /controls/masvs-privacy-2/
+  - id: MASVS-PRIVACY-3
+    title: "The app is transparent about data collection and usage."
+    href: /controls/masvs-privacy-3/
+---
+
+## What This Control Means
+
+Request the minimum permissions and data needed, obtain informed consent, and ensure third-party SDKs honor consent rather than collecting by default.
+
+## Why This Matters
+
+Every unnecessary permission or SDK data grab expands the impact of a breach and erodes user trust.
+
+## Main Security Requirement
+
+> The app minimizes access to sensitive data and resources.
+
+## Common Failure Patterns
+
+- Requesting broad permissions up front without need.
+- SDKs collecting before consent is given.
+- Not auditing the SDK supply chain for data collection.
+
+## Secure Implementation
+
+Request permissions at the point of use, review SDKs for data collection, and gate SDK initialization behind consent.
+
+## Key Rules
+
+- Request only what the feature needs.
+- Gate SDKs behind consent.
+- Audit the SDK supply chain.
+
+## Checklist for Code Review
+
+- Are permission requests minimal and contextual?
+- Do SDKs honor consent signals?
+- Is the SDK data flow documented?

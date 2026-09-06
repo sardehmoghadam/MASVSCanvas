@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-STORAGE-2
+slug: masvs-storage-2
+title: "Prevent leakage of sensitive data"
+summary: "Stop sensitive data from leaking into public locations through APIs, backups, or logs."
+chapter:
+  id: MASVS-STORAGE
+  title: Storage
+levels: ["L1", "L2"]
+tags:
+  - storage
+  - data-leakage
+  - backups
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-STORAGE-1
+    title: "The app securely stores sensitive data."
+    href: /controls/masvs-storage-1/
+---
+
+## What This Control Means
+
+Sensitive data can leak unintentionally through backups, screenshots, logs, caches, or OS APIs that copy it to shared locations. The app must disable or filter these channels.
+
+## Why This Matters
+
+Even well-protected storage is pointless if the OS or a side channel silently copies the same data somewhere public.
+
+## Main Security Requirement
+
+> The app prevents leakage of sensitive data.
+
+## Common Failure Patterns
+
+- Letting sensitive views appear in backups or the app switcher.
+- Logging tokens, keys, or PII to adb/syslog.
+- Leaving sensitive data in caches or temp files on external storage.
+
+## Secure Implementation
+
+Mark text fields as non-sensitive and disable screenshots for high-value screens, exclude files from backups, and strip secrets from logs before they are written.
+
+## Key Rules
+
+- Disable backups and app-switcher snapshots for sensitive content.
+- Never log secrets, tokens, or PII.
+- Scrub caches and temp files after use.
+
+## Checklist for Code Review
+
+- Are sensitive fields excluded from screenshots and backups?
+- Do logs contain any sensitive values?
+- Are caches and temp files cleared or stored privately?

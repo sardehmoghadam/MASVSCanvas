@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-AUTH-3
+slug: masvs-auth-3
+title: "Step-up auth for sensitive operations"
+summary: "Require additional authentication before performing sensitive actions."
+chapter:
+  id: MASVS-AUTH
+  title: Authentication and Authorization
+levels: ["L1", "L2"]
+tags:
+  - authentication
+  - step-up
+  - mfa
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-AUTH-1
+    title: "The app uses secure authentication and authorization protocols and follows the relevant best practices."
+    href: /controls/masvs-auth-1/
+  - id: MASVS-AUTH-2
+    title: "The app performs local authentication securely according to the platform best practices."
+    href: /controls/masvs-auth-2/
+---
+
+## What This Control Means
+
+High-value actions such as transfers, account changes, and reading secrets should re-prompt the user for additional proof such as biometrics, a PIN, or a second factor.
+
+## Why This Matters
+
+If the app is unlocked and unattended, step-up auth prevents an attacker from performing the most damaging actions.
+
+## Main Security Requirement
+
+> The app secures sensitive operations with additional authentication.
+
+## Common Failure Patterns
+
+- Allowing sensitive operations with only the session's ambient state.
+- Using a trivially bypassable confirmation like a plain dialog.
+- Reusing the same local credential without expiry for step-up.
+
+## Secure Implementation
+
+Gate sensitive flows behind a fresh biometric/pin prompt or a server-side second factor, with a short authorization window.
+
+## Key Rules
+
+- Identify and protect every high-value operation.
+- Require fresh, strong re-authentication.
+- Keep the authorization window short.
+
+## Checklist for Code Review
+
+- Are sensitive operations behind step-up auth?
+- Is re-authentication fresh and strong?
+- Is there an expiry on the authorization?

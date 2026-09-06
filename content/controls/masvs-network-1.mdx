@@ -1,0 +1,59 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-NETWORK-1
+slug: masvs-network-1
+title: "Secure all network traffic"
+summary: "Encrypt and authenticate every network connection using current best practices."
+chapter:
+  id: MASVS-NETWORK
+  title: Network Communication
+levels: ["L1", "L2"]
+tags:
+  - network
+  - tls
+  - encryption
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-NETWORK-2
+    title: "The app performs identity pinning for all remote endpoints under the developer's control."
+    href: /controls/masvs-network-2/
+---
+
+## What This Control Means
+
+Every connection must use TLS with validated certificates and strong ciphers; no cleartext, no trust-all, no disabled verification via low-level APIs or libraries.
+
+## Why This Matters
+
+Network traffic is the easiest thing to intercept; cleartext or broken TLS exposes credentials and user data.
+
+## Main Security Requirement
+
+> The app secures all network traffic according to the current best practices.
+
+## Common Failure Patterns
+
+- Allowing cleartext HTTP.
+- Disabling certificate validation or trusting all CAs.
+- Using low-level sockets that bypass platform TLS.
+
+## Secure Implementation
+
+Enforce HTTPS, set a network security policy that disallows cleartext, and configure TLS with up-to-date ciphers; on Android use networkSecurityConfig.
+
+## Key Rules
+
+- Never allow cleartext transport.
+- Validate certificates by default.
+- Do not bypass platform TLS.
+
+## Checklist for Code Review
+
+- Is cleartext traffic disabled app-wide?
+- Is certificate validation always on?
+- Are ciphers/protocols on an approved list?

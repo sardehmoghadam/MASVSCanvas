@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PRIVACY-2
+slug: masvs-privacy-2
+title: "Prevent user identification"
+summary: "Use anonymization and pseudonymization to stop identification and tracking."
+chapter:
+  id: MASVS-PRIVACY
+  title: Privacy
+levels: ["L1", "L2"]
+tags:
+  - privacy
+  - anonymization
+  - pseudonymization
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PRIVACY-1
+    title: "The app minimizes access to sensitive data and resources."
+    href: /controls/masvs-privacy-1/
+  - id: MASVS-PRIVACY-3
+    title: "The app is transparent about data collection and usage."
+    href: /controls/masvs-privacy-3/
+---
+
+## What This Control Means
+
+Use unlinkability techniques such as abstraction, anonymization, and pseudonymization so device IDs and behavioral signals cannot re-identify a user.
+
+## Why This Matters
+
+Persistent identifiers enable cross-app tracking and de-anonymization.
+
+## Main Security Requirement
+
+> The app prevents identification of the user.
+
+## Common Failure Patterns
+
+- Sending raw device IDs and identifiers to analytics.
+- Reusing a single pseudonymous id across purposes.
+- Fingerprint-like signals shared between vendors.
+
+## Secure Implementation
+
+Avoid advertising IDs where possible, isolate per-purpose pseudonymous identifiers, and apply aggregation or differential-privacy style safeguards.
+
+## Key Rules
+
+- Avoid persistent advertising identifiers.
+- Isolate identifiers per purpose.
+- Use anonymization and pseudonymization techniques.
+
+## Checklist for Code Review
+
+- Are device IDs minimized or avoided?
+- Are identifiers isolated per purpose?
+- Is re-identification risk assessed?

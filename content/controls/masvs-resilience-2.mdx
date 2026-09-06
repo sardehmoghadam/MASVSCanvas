@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-RESILIENCE-2
+slug: masvs-resilience-2
+title: "Implement anti-tampering"
+summary: "Detect or prevent modifications to the app's code and resources."
+chapter:
+  id: MASVS-RESILIENCE
+  title: Resilience Against Reverse Engineering and Tampering
+levels: ["R"]
+tags:
+  - resilience
+  - anti-tampering
+  - integrity
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-RESILIENCE-1
+    title: "The app validates the integrity of the platform."
+    href: /controls/masvs-resilience-1/
+  - id: MASVS-RESILIENCE-4
+    title: "The app implements anti-dynamic analysis techniques."
+    href: /controls/masvs-resilience-4/
+---
+
+## What This Control Means
+
+Detect modifications to the binary and resources (repackaging, patching) to prevent cheat builds and tampered re-distribution.
+
+## Why This Matters
+
+A locally modified app can bypass checks or be redistributed with backdoors.
+
+## Main Security Requirement
+
+> The app implements anti-tampering mechanisms.
+
+## Common Failure Patterns
+
+- Providing no signature or integrity verification.
+- Verifying integrity client-side only with trivially bypassable checks.
+- Ignoring tamper events at runtime.
+
+## Secure Implementation
+
+Verify the app signature at runtime and check critical code and resource integrity, with redundant checks in native code where relevant.
+
+## Key Rules
+
+- Verify the app signature at runtime.
+- Check the integrity of code and resources.
+- Apply multiple, layered checks.
+
+## Checklist for Code Review
+
+- Is the app signature verified?
+- Are code and resources integrity-checked?
+- Are checks layered and non-trivial to bypass?

@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PLATFORM-3
+slug: masvs-platform-3
+title: "Secure the user interface"
+summary: "Prevent sensitive UI data from leaking via screenshots or shoulder surfing."
+chapter:
+  id: MASVS-PLATFORM
+  title: Platform Interaction
+levels: ["L1", "L2"]
+tags:
+  - platform
+  - ui
+  - screenshots
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PLATFORM-1
+    title: "The app uses IPC mechanisms securely."
+    href: /controls/masvs-platform-1/
+  - id: MASVS-PLATFORM-2
+    title: "The app uses WebViews securely."
+    href: /controls/masvs-platform-2/
+---
+
+## What This Control Means
+
+Passwords, OTPs, and card details shown on screen must not leak through auto-generated screenshots (the app switcher) or be easily read over a shoulder.
+
+## Why This Matters
+
+Screenshots are captured by the OS automatically, and shared screens or shoulder surfing reveal in-context secrets.
+
+## Main Security Requirement
+
+> The app uses the user interface securely.
+
+## Common Failure Patterns
+
+- Sensitive fields appearing in auto-generated screenshots.
+- Masking only visually while firing before-text-change leaks.
+- Showing full secrets when a masked view would do.
+
+## Secure Implementation
+
+Set FLAG_SECURE / hide content from screen capture on sensitive screens, and use masked or one-time-reveal fields for secrets and OTPs.
+
+## Key Rules
+
+- Block screenshots on sensitive screens.
+- Mask secrets and OTPs by default.
+- Reveal concealable data only on demand.
+
+## Checklist for Code Review
+
+- Are sensitive screens excluded from capture?
+- Are secrets masked by default?
+- Is reveal-on-demand used where possible?

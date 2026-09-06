@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PRIVACY-3
+slug: masvs-privacy-3
+title: "Be transparent about data use"
+summary: "Clearly disclose data collection, storage, and sharing practices."
+chapter:
+  id: MASVS-PRIVACY
+  title: Privacy
+levels: ["L1", "L2"]
+tags:
+  - privacy
+  - transparency
+  - disclosure
+difficulty: foundational
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PRIVACY-4
+    title: "The app offers user control over their data."
+    href: /controls/masvs-privacy-4/
+  - id: MASVS-PRIVACY-1
+    title: "The app minimizes access to sensitive data and resources."
+    href: /controls/masvs-privacy-1/
+---
+
+## What This Control Means
+
+Tell users what data is collected and shared, including unexpected background collection, and follow platform data-declaration requirements.
+
+## Why This Matters
+
+Users have a right to know how their data is used; hidden collection is both a compliance and a trust failure.
+
+## Main Security Requirement
+
+> The app is transparent about data collection and usage.
+
+## Common Failure Patterns
+
+- Collecting data not covered by the privacy policy.
+- Omitting background or third-party collection.
+- Skipping platform data-safety declarations.
+
+## Secure Implementation
+
+Maintain an accurate privacy policy, declare data practices per platform guidelines, and notify users of non-obvious collection.
+
+## Key Rules
+
+- Keep privacy declarations accurate and current.
+- Declare background and third-party collection.
+- Follow platform data-safety forms.
+
+## Checklist for Code Review
+
+- Does the privacy policy match actual collection?
+- Is background/third-party use disclosed?
+- Are platform data declarations complete?

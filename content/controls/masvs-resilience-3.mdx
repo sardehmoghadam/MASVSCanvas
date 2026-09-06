@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-RESILIENCE-3
+slug: masvs-resilience-3
+title: "Impede static analysis"
+summary: "Make it harder to understand the app through static analysis."
+chapter:
+  id: MASVS-RESILIENCE
+  title: Resilience Against Reverse Engineering and Tampering
+levels: ["R"]
+tags:
+  - resilience
+  - static-analysis
+  - obfuscation
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-RESILIENCE-4
+    title: "The app implements anti-dynamic analysis techniques."
+    href: /controls/masvs-resilience-4/
+  - id: MASVS-RESILIENCE-1
+    title: "The app validates the integrity of the platform."
+    href: /controls/masvs-resilience-1/
+---
+
+## What This Control Means
+
+Increase the cost of reverse-engineering by obfuscating control flow, strings, and data so static analysis is slow and confusing.
+
+## Why This Matters
+
+Understanding the app is the first step to tampering; raising that cost protects intellectual property and deters casual attackers.
+
+## Main Security Requirement
+
+> The app implements anti-static analysis mechanisms.
+
+## Common Failure Patterns
+
+- Shipping unobfuscated builds with symbols and plain secrets.
+- Relying on obfuscation alone for security.
+- Breaking functionality or stability with aggressive transforms.
+
+## Secure Implementation
+
+Enable compiler optimizations and symbol stripping, apply a maintained obfuscator (e.g. R8/ProGuard plus native obfuscation), and move critical logic server-side where possible.
+
+## Key Rules
+
+- Strip symbols and enable optimizations.
+- Obfuscate control flow and strings.
+- Keep critical logic server-side where possible.
+
+## Checklist for Code Review
+
+- Are symbols stripped and optimizations enabled?
+- Is string and control-flow obfuscation applied?
+- Is confidential logic kept server-side?

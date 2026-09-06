@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-PLATFORM-1
+slug: masvs-platform-1
+title: "Use IPC securely"
+summary: "Secure all inter-process communication when exposing data or functionality."
+chapter:
+  id: MASVS-PLATFORM
+  title: Platform Interaction
+levels: ["L1", "L2"]
+tags:
+  - platform
+  - ipc
+  - intents
+difficulty: intermediate
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-PLATFORM-2
+    title: "The app uses WebViews securely."
+    href: /controls/masvs-platform-2/
+  - id: MASVS-PLATFORM-3
+    title: "The app uses the user interface securely."
+    href: /controls/masvs-platform-3/
+---
+
+## What This Control Means
+
+IPC surfaces such as intents, Binder/AIDL, content providers, and URL schemes that expose data or functions must authenticate callers and validate every input boundary.
+
+## Why This Matters
+
+Other apps and the user can reach IPC surfaces, so an unauthenticated export is an instant data or functionality leak.
+
+## Main Security Requirement
+
+> The app uses IPC mechanisms securely.
+
+## Common Failure Patterns
+
+- Exporting components without permissions or caller checks.
+- Accepting intents/URLs without validating scheme, source, and data.
+- Returning sensitive data to unauthenticated callers.
+
+## Secure Implementation
+
+Keep components non-exported by default, add permission guards and caller checks, and validate scheme/host/data for URL and deep-link handlers.
+
+## Key Rules
+
+- Keep components private (non-exported) by default.
+- Authenticate and authorize every IPC caller.
+- Validate all data crossing the IPC boundary.
+
+## Checklist for Code Review
+
+- Are exported components minimized and guarded?
+- Is every caller authenticated/authorized?
+- Is deep-link/URL input validated?

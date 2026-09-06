@@ -1,0 +1,62 @@
+---
+schemaVersion: "1.0.0"
+standardVersion: "2.0.0"
+controlId: MASVS-RESILIENCE-1
+slug: masvs-resilience-1
+title: "Validate platform integrity"
+summary: "Check the underlying OS is not compromised so its security features can be trusted."
+chapter:
+  id: MASVS-RESILIENCE
+  title: Resilience Against Reverse Engineering and Tampering
+levels: ["R"]
+tags:
+  - resilience
+  - integrity
+  - root-detection
+difficulty: advanced
+reviewStatus: reviewed
+references:
+  - label: OWASP MASVS 2.0.0
+    url: https://mas.owasp.org/MASVS/
+relatedControls:
+  - id: MASVS-RESILIENCE-2
+    title: "The app implements anti-tampering mechanisms."
+    href: /controls/masvs-resilience-2/
+  - id: MASVS-RESILIENCE-3
+    title: "The app implements anti-static analysis mechanisms."
+    href: /controls/masvs-resilience-3/
+---
+
+## What This Control Means
+
+Detect rooted/jailbroken devices (or use platform attestation) because a compromised OS can disable the sandbox, keystore, and other protections the app relies on.
+
+## Why This Matters
+
+Many MASVS controls assume a trustworthy OS; a compromised platform silently defeats them.
+
+## Main Security Requirement
+
+> The app validates the integrity of the platform.
+
+## Common Failure Patterns
+
+- Trusting the platform without any integrity signal.
+- Using only easily-spoofed root beacons.
+- Not reacting (blocking or degrading) on detection.
+
+## Secure Implementation
+
+Use platform attestation (Play Integrity / App Attestation) plus additional jailbreak/root indicators, and block or degrade sensitive features when integrity fails.
+
+## Key Rules
+
+- Prefer platform attestation over heuristic checks.
+- Treat integrity failure as a trust boundary.
+- Degrade or block sensitive features on detection.
+
+## Checklist for Code Review
+
+- Is platform attestation used?
+- Are integrity results acted upon?
+- Do sensitive features require a trusted platform?
